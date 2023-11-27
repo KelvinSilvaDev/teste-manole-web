@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import api from "../services/api";
 
 export function CreateUserForm(){
     const [formData, setFormData] = useState({
@@ -16,6 +17,12 @@ export function CreateUserForm(){
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
 
+        api.post('/users', formData).then(response => {
+            alert(`Usuário ${response.data.name} criado com sucesso!`);
+        }).catch(error => {
+            alert('Erro ao criar usuário!');
+            console.error(error);
+        })
         
     }
 
